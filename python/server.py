@@ -10,7 +10,7 @@ class S(BaseHTTPRequestHandler):
         self.end_headers()
 
     def _html(self, message):
-        content = f"<html><body><h1>{message}</h1></body></html>"
+        content = f"Hello World"
         return content.encode("utf8")  # NOTE: must return a bytes object!
 
     def do_GET(self):
