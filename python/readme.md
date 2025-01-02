@@ -1,1 +1,1 @@
-python3 server.py
+- Run `python3 server.py`

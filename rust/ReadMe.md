@@ -1,5 +1,3 @@
-<!-- To build rust project -->
-cargo build
-
-<!-- To run rust project -->
-cargo run
+- To build Rust project `cargo build`
+- To run rust project `cargo run`
+- Open `127.0.0.1:7878` on browser.
