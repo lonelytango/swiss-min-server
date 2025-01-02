@@ -1,1 +1,2 @@
 - Run `python3 server.py`
+- Open `localhost:8000` on browser

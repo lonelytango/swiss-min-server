@@ -1,51 +1,24 @@
-#!/usr/bin/env python
-
-import argparse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-class S(BaseHTTPRequestHandler):
-    def _set_headers(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-
-    def _html(self, message):
-        content = f"Hello World"
-        return content.encode("utf8")  # NOTE: must return a bytes object!
-
+class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        self._set_headers()
-        self.wfile.write(self._html("hi!"))
+        # Set response code to 200 (OK)
+        self.send_response(200)
+        # Set content type header
+        self.send_header('Content-Type', 'text/plain')
+        # End headers
+        self.end_headers()
+        # Write response content
+        response = "Welcome to Python Server"
+        self.wfile.write(response.encode())
 
-    def do_HEAD(self):
-        self._set_headers()
-
-    def do_POST(self):
-        # Doesn't do anything with posted data
-        self._set_headers()
-        self.wfile.write(self._html("POST!"))
-
-def run(server_class=HTTPServer, handler_class=S, addr="localhost", port=8000):
-    server_address = (addr, port)
-    httpd = server_class(server_address, handler_class)
-
-    print(f"Starting httpd server on {addr}:{port}")
+def run_server(port=8000):
+    # Create server with handler
+    server_address = ('', port)
+    httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
+    print(f"Server running on port {port}")
+    # Start server
     httpd.serve_forever()
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run a simple HTTP server")
-    parser.add_argument(
-        "-l",
-        "--listen",
-        default="localhost",
-        help="Specify the IP address on which the server listens",
-    )
-    parser.add_argument(
-        "-p",
-        "--port",
-        type=int,
-        default=8000,
-        help="Specify the port on which the server listens",
-    )
-    args = parser.parse_args()
-    run(addr=args.listen, port=args.port)
+if __name__ == '__main__':
+    run_server()

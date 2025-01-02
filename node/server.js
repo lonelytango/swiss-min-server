@@ -1,24 +1,11 @@
-var http = require('http');
+import { createServer } from 'http';
 
-var server = http.createServer(function (req, res) {
-    if (req.url == '/') {
-        res.writeHead(200, { 'Content-Type': 'text/html' });  
-        res.write('<html><body><p>This is home Page.</p></body></html>');
-        res.end();
-    }
-    else if (req.url == "/test") {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.write('<html><body><p>This is test Page.</p></body></html>');
-        res.end();
-    }
-    else if (req.url == "/admin") {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.write('<html><body><p>This is admin Page.</p></body></html>');
-        res.end();
-    }
-    else
-        res.end('Invalid Request!');
+const server = createServer((req, res) => {
+	res.statusCode = 200;
+	res.setHeader('Content-Type', 'text/plain');
+	res.end('Welcome to Node Server');
 });
 
-server.listen(5000);
-console.log('Node.js web server at port 5000 is running..')
+server.listen(8000, () => {
+	console.log('Server running on port 8000');
+});
