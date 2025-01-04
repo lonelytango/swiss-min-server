@@ -1,32 +1,12 @@
-const fs = require('fs').promises; // Using promise-based fs
 const path = require('path');
+import { readFile, writeFile } from './file_utils';
 
 const TODO_FILE = path.join(__dirname, 'todos.json');
-
-// Utility function to read the file
-async function readTodoFile() {
-	try {
-		const data = await fs.readFile(TODO_FILE, 'utf8');
-		return JSON.parse(data || '[]');
-	} catch (error) {
-		if (error.code === 'ENOENT') {
-			// File doesn't exist, create it with empty array
-			await fs.writeFile(TODO_FILE, '[]', 'utf8');
-			return [];
-		}
-		throw error;
-	}
-}
-
-// Utility function to write to file
-async function writeTodoFile(todos) {
-	await fs.writeFile(TODO_FILE, JSON.stringify(todos, null, 2), 'utf8');
-}
 
 // GET all todos
 async function getAllTodos() {
 	try {
-		return await readTodoFile();
+		return await readFile(TODO_FILE);
 	} catch (error) {
 		console.error('Error reading todos:', error);
 		throw error;
@@ -36,7 +16,7 @@ async function getAllTodos() {
 // GET specific todo by id
 async function getTodoById(id) {
 	try {
-		const todos = await readTodoFile();
+		const todos = await readFile(TODO_FILE);
 		const todo = todos.find((t) => t.id === id);
 		if (!todo) {
 			throw new Error(`Todo with id ${id} not found`);
@@ -51,16 +31,15 @@ async function getTodoById(id) {
 // POST new todo
 async function createTodo(content) {
 	try {
-		const todos = await readTodoFile();
+		const todos = await readFile(TODO_FILE);
 		const newTodo = {
 			id: todos.length ? Math.max(...todos.map((t) => t.id)) + 1 : 1,
 			date: new Date().toISOString(),
 			content,
 			complete: false,
 		};
-
 		todos.push(newTodo);
-		await writeTodoFile(todos);
+		await writeFile(TODO_FILE, todos);
 		return newTodo;
 	} catch (error) {
 		console.error('Error creating todo:', error);
@@ -71,7 +50,7 @@ async function createTodo(content) {
 // PUT update todo
 async function updateTodo(id, updates) {
 	try {
-		const todos = await readTodoFile();
+		const todos = await readFile(TODO_FILE);
 		const index = todos.findIndex((t) => t.id === id);
 
 		if (index === -1) {
@@ -85,7 +64,7 @@ async function updateTodo(id, updates) {
 			date: updates.date || todos[index].date, // Keep original date if not updated
 		};
 
-		await writeTodoFile(todos);
+		await writeFile(TODO_FILE, todos);
 		return todos[index];
 	} catch (error) {
 		console.error(`Error updating todo ${id}:`, error);
@@ -96,7 +75,7 @@ async function updateTodo(id, updates) {
 // DELETE todo
 async function deleteTodo(id) {
 	try {
-		const todos = await readTodoFile();
+		const todos = await readFile(TODO_FILE);
 		const index = todos.findIndex((t) => t.id === id);
 
 		if (index === -1) {
@@ -104,7 +83,7 @@ async function deleteTodo(id) {
 		}
 
 		todos.splice(index, 1);
-		await writeTodoFile(todos);
+		await writeFile(TODO_FILE, todos);
 		return true;
 	} catch (error) {
 		console.error(`Error deleting todo ${id}:`, error);
