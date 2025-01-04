@@ -1,12 +1,12 @@
-const path = require('path');
-import { readFile, writeFile } from './file_utils';
+import * as path from 'path';
+import { readJsonFile, writeJsonFile } from './utils/file_utils';
 
 const TODO_FILE = path.join(__dirname, 'todos.json');
 
 // GET all todos
 async function getAllTodos() {
 	try {
-		return await readFile(TODO_FILE);
+		return await readJsonFile(TODO_FILE);
 	} catch (error) {
 		console.error('Error reading todos:', error);
 		throw error;
@@ -16,7 +16,7 @@ async function getAllTodos() {
 // GET specific todo by id
 async function getTodoById(id) {
 	try {
-		const todos = await readFile(TODO_FILE);
+		const todos = await readJsonFile(TODO_FILE);
 		const todo = todos.find((t) => t.id === id);
 		if (!todo) {
 			throw new Error(`Todo with id ${id} not found`);
@@ -31,7 +31,7 @@ async function getTodoById(id) {
 // POST new todo
 async function createTodo(content) {
 	try {
-		const todos = await readFile(TODO_FILE);
+		const todos = await readJsonFile(TODO_FILE);
 		const newTodo = {
 			id: todos.length ? Math.max(...todos.map((t) => t.id)) + 1 : 1,
 			date: new Date().toISOString(),
@@ -39,7 +39,7 @@ async function createTodo(content) {
 			complete: false,
 		};
 		todos.push(newTodo);
-		await writeFile(TODO_FILE, todos);
+		await writeJsonFile(TODO_FILE, todos);
 		return newTodo;
 	} catch (error) {
 		console.error('Error creating todo:', error);
@@ -50,7 +50,7 @@ async function createTodo(content) {
 // PUT update todo
 async function updateTodo(id, updates) {
 	try {
-		const todos = await readFile(TODO_FILE);
+		const todos = await readJsonFile(TODO_FILE);
 		const index = todos.findIndex((t) => t.id === id);
 
 		if (index === -1) {
@@ -64,7 +64,7 @@ async function updateTodo(id, updates) {
 			date: updates.date || todos[index].date, // Keep original date if not updated
 		};
 
-		await writeFile(TODO_FILE, todos);
+		await writeJsonFile(TODO_FILE, todos);
 		return todos[index];
 	} catch (error) {
 		console.error(`Error updating todo ${id}:`, error);
@@ -75,7 +75,7 @@ async function updateTodo(id, updates) {
 // DELETE todo
 async function deleteTodo(id) {
 	try {
-		const todos = await readFile(TODO_FILE);
+		const todos = await readJsonFile(TODO_FILE);
 		const index = todos.findIndex((t) => t.id === id);
 
 		if (index === -1) {
@@ -83,7 +83,7 @@ async function deleteTodo(id) {
 		}
 
 		todos.splice(index, 1);
-		await writeFile(TODO_FILE, todos);
+		await writeJsonFile(TODO_FILE, todos);
 		return true;
 	} catch (error) {
 		console.error(`Error deleting todo ${id}:`, error);

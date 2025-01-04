@@ -1,11 +1,14 @@
 const fs = require('fs').promises; // Using promise-based fs
 
-export async function readFile(path) {
+export async function createJsonFile(path) {
+	await fs.writeFile(path, '[]', 'utf8');
+}
+
+export async function readJsonFile(path) {
 	try {
 		const data = await fs.readFile(path, 'utf8');
 		return JSON.parse(data || '[]');
 	} catch (error) {
-        // File doesn't exist, create it with empty array
 		if (error.code === 'ENOENT') {
 			await fs.writeFile(path, '[]', 'utf8');
 			return [];
@@ -14,7 +17,6 @@ export async function readFile(path) {
 	}
 }
 
-export async function writeFile(path, data) {
+export async function writeJsonFile(path, data) {
 	await fs.writeFile(path, JSON.stringify(data, null, 2), 'utf8');
 }
-
