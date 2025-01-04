@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { readJsonFile, writeJsonFile } from './utils/file_utils';
+import { readJsonFile, writeJsonFile } from '../utils/file_utils';
 
 const TODO_FILE = path.join(__dirname, 'todos.json');
 
