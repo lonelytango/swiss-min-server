@@ -1,3 +1,3 @@
-- To build Rust project `cargo build`
-- To run rust project `cargo run`
-- Open `127.0.0.1:7878` on browser.
+- [Install Rust](https://www.rust-lang.org/tools/install)
+- To compile the rust server code, run `rustc server.rs`.
+- Open `127.0.0.1:8000` on browser.
