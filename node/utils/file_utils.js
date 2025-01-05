@@ -1,18 +1,11 @@
-const fs = require('fs').promises; // Using promise-based fs
-
-export async function createJsonFile(path) {
-	await fs.writeFile(path, '[]', 'utf8');
-}
+const fs = require('fs').promises;
 
 export async function readJsonFile(path) {
 	try {
 		const data = await fs.readFile(path, 'utf8');
-		return JSON.parse(data || '[]');
+		return JSON.parse(data || '{}');
 	} catch (error) {
-		if (error.code === 'ENOENT') {
-			await fs.writeFile(path, '[]', 'utf8');
-			return [];
-		}
+		console.error(error);
 		throw error;
 	}
 }

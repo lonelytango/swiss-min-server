@@ -1,0 +1,5 @@
+- [Install Node.js](https://nodejs.org/en/download)
+- `file_utils.js` has the file read write utility code.
+- After downloading the code, navigate to `demo` folder on your local machine.
+- Run `node file_demo.js`.
+- You should see `test_file.json` gets created, and the log on your console showing successful data read.
