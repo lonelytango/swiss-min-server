@@ -1,2 +1,2 @@
-- Install go from https://go.dev/dl/
+- - [Install Go](https://go.dev/dl/)
 - Run `go server.go`
