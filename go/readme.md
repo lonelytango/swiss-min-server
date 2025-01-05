@@ -1,2 +1,2 @@
 - [Install Go](https://go.dev/dl/)
-- Run `go server.go`
+- Run `go run server.go`
