@@ -1,6 +1,8 @@
 .headers on
 .mode column
 
+-- Show all books
 SELECT * FROM books;
 
-SELECT * FROM books WHERE author = 'F. Scott Fitzgerald';
+-- Show all books by Fitzgerald
+-- SELECT * FROM books WHERE author = 'F. Scott Fitzgerald';
