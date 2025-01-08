@@ -1,3 +1,7 @@
+All the queries use in the article are placed in `queries.sql`.
+
+The sql files in `demo` folder is for demo purpose. You may use these commands to see how sql file works with sqlite3 command
+
 - To setup database
 `sqlite3 db.sqlite < setup.sql`
 
