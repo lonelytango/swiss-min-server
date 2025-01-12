@@ -1,99 +1,61 @@
-import BookModel from '../models/books.js';
+import BookModel from '../models/Book.js';
+import { sendJsonResponse } from '../utils/requestUtils.js';
 
 class BookController {
     static async getAllBooks(req, res) {
         const books = BookModel.getAll();
-        // console.log('GET: Retrieved all books:', books);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-            success: true,
-            message: 'Books retrieved successfully',
-            data: books
-        }));
+        console.log('GET: Retrieved all books:', books);
+        sendJsonResponse(res, 200, true, 'Books retrieved successfully', books);
     }
 
     static async getBookById(req, res, id) {
         const book = BookModel.getById(id);
         if (book) {
-            // console.log('GET: Retrieved book:', book);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                success: true,
-                message: 'Book retrieved successfully',
-                data: book
-            }));
+            console.log('GET: Retrieved book:', book);
+            sendJsonResponse(res, 200, true, 'Book retrieved successfully', book);
         } else {
-            // console.log('GET: Book not found:', id);
-            res.writeHead(404, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                success: false,
-                message: 'Book not found',
-                data: null
-            }));
+            console.log('GET: Book not found:', id);
+            sendJsonResponse(res, 404, false, 'Book not found');
         }
     }
 
     static async createBook(req, res, bookData) {
         if (!bookData.title) {
-            // console.log('POST: Missing required title field');
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                success: false,
-                message: 'Title is required',
-                data: null
-            }));
+            console.log('POST: Missing required title field');
+            sendJsonResponse(res, 400, false, 'Title is required');
             return;
         }
 
         const newBook = BookModel.create(bookData);
-        // console.log('POST: Created new book:', newBook);
-        res.writeHead(201, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-            success: true,
-            message: 'Book created successfully',
-            data: newBook
-        }));
+        console.log('POST: Created new book:', newBook);
+        sendJsonResponse(res, 201, true, 'Book created successfully', newBook);
     }
 
     static async updateBook(req, res, id, bookData) {
+        if (!bookData.title) {
+            console.log('PUT: Missing required title field');
+            sendJsonResponse(res, 400, false, 'Title is required');
+            return;
+        }
+
         const updatedBook = BookModel.update(id, bookData);
         if (updatedBook) {
-            // console.log('PUT: Updated book:', updatedBook);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                success: true,
-                message: 'Book updated successfully',
-                data: updatedBook
-            }));
+            console.log('PUT: Updated book:', updatedBook);
+            sendJsonResponse(res, 200, true, 'Book updated successfully', updatedBook);
         } else {
-            // console.log('PUT: Book not found:', id);
-            res.writeHead(404, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                success: false,
-                message: 'Book not found',
-                data: null
-            }));
+            console.log('PUT: Book not found:', id);
+            sendJsonResponse(res, 404, false, 'Book not found');
         }
     }
 
     static async deleteBook(req, res, id) {
         const deletedBook = BookModel.delete(id);
         if (deletedBook) {
-            // console.log('DELETE: Removed book:', deletedBook);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                success: true,
-                message: 'Book deleted successfully',
-                data: deletedBook
-            }));
+            console.log('DELETE: Removed book:', deletedBook);
+            sendJsonResponse(res, 200, true, 'Book deleted successfully', deletedBook);
         } else {
-            // console.log('DELETE: Book not found:', id);
-            res.writeHead(404, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({
-                success: false,
-                message: 'Book not found',
-                data: null
-            }));
+            console.log('DELETE: Book not found:', id);
+            sendJsonResponse(res, 404, false, 'Book not found');
         }
     }
 }

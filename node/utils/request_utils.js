@@ -21,3 +21,13 @@ export const setCorsHeaders = (res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 };
+
+// Helper function to send JSON response
+export const sendJsonResponse = (res, statusCode, success, message, data = null) => {
+    res.writeHead(statusCode, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+        success,
+        message,
+        data
+    }));
+};
