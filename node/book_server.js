@@ -1,10 +1,8 @@
 import { createServer } from 'http';
 import BookController from './controllers/book_controller.js';
-import { getRequestBody, setCorsHeaders} from './utils/request_utils.js';
+import { getRequestBody } from './utils/request_utils.js';
 
 const server = createServer(async (req, res) => {
-
-	setCorsHeaders(res);
 
 	// Parse the URL to get the path and potential ID
     const url = new URL(req.url, `http://${req.headers.host}`);
