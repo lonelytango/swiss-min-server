@@ -1,0 +1,81 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Book Server",
+    "collectionId": "dfd6643f-559b-4198-818e-01d449dc8a99",
+    "dateExported": "2025-01-14T11:14:06.861Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "0d1f5ef8-4c0b-4087-bd1a-a528cbf9277e",
+            "colId": "dfd6643f-559b-4198-818e-01d449dc8a99",
+            "containerId": "",
+            "name": "localhost:8000",
+            "url": "localhost:8000/books",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2025-01-12T04:21:46.208Z",
+            "modified": "2025-01-12T04:21:46.208Z",
+            "headers": []
+        },
+        {
+            "_id": "ad03b392-d667-491a-8d26-b414789a652a",
+            "colId": "dfd6643f-559b-4198-818e-01d449dc8a99",
+            "containerId": "",
+            "name": "localhost:8000",
+            "url": "localhost:8000/books",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2025-01-12T04:22:06.590Z",
+            "modified": "2025-01-12T04:43:05.835Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"The Catcher in the Rye\",\n  \"author\": \"J.D Salinger\",\n  \"pub_year\": 1951\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "714fe9ef-149f-4d88-987c-5040d1b2a1b9",
+            "colId": "dfd6643f-559b-4198-818e-01d449dc8a99",
+            "containerId": "",
+            "name": "localhost:8000 GET One",
+            "url": "localhost:8000/books/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2025-01-12T16:19:42.441Z",
+            "modified": "2025-01-12T16:20:10.980Z",
+            "headers": []
+        },
+        {
+            "_id": "ecdeeeaa-5131-4757-96a3-a0a7f6d3179b",
+            "colId": "dfd6643f-559b-4198-818e-01d449dc8a99",
+            "containerId": "",
+            "name": "localhost:8000",
+            "url": "localhost:8000/books/1",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2025-01-12T04:43:23.005Z",
+            "modified": "2025-01-12T05:16:33.659Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"pub_year\": 1999\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ac463fa5-59ac-4b7b-b133-83eb602c2b4e",
+            "colId": "dfd6643f-559b-4198-818e-01d449dc8a99",
+            "containerId": "",
+            "name": "localhost:800",
+            "url": "localhost:8000/books/1",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2025-01-12T05:12:00.871Z",
+            "modified": "2025-01-13T04:19:55.879Z",
+            "headers": []
+        }
+    ],
+    "ref": "91kwczydcdsftEWSKc8vZ-ToshBpsFd6pyxUCkC-HqRTh6dJDoEerS-pW4gUrTTnLY-lm7F-UObQ17FCrQ0rXw"
+}
